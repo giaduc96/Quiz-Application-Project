@@ -393,6 +393,7 @@ public class MainActivity extends Activity {
                                                     B_button.setVisibility(View.INVISIBLE);
                                                     C_button.setVisibility(View.INVISIBLE);
                                                     Skip_button.setVisibility(View.INVISIBLE);
+                                                    //Show Start
                                                     Start_button.setVisibility(View.VISIBLE);
                                                 }
                                             });
@@ -411,6 +412,7 @@ public class MainActivity extends Activity {
                                                     B_button.setVisibility(View.INVISIBLE);
                                                     C_button.setVisibility(View.INVISIBLE);
                                                     Skip_button.setVisibility(View.INVISIBLE);
+                                                    //Show Start
                                                     Start_button.setVisibility(View.VISIBLE);
                                                 }
                                             });
@@ -496,6 +498,7 @@ public class MainActivity extends Activity {
                                                     B_button.setVisibility(View.INVISIBLE);
                                                     C_button.setVisibility(View.INVISIBLE);
                                                     Skip_button.setVisibility(View.INVISIBLE);
+                                                    //Show Start
                                                     Start_button.setVisibility(View.VISIBLE);
                                                 }
                                             });
@@ -514,6 +517,7 @@ public class MainActivity extends Activity {
                                                     B_button.setVisibility(View.INVISIBLE);
                                                     C_button.setVisibility(View.INVISIBLE);
                                                     Skip_button.setVisibility(View.INVISIBLE);
+                                                    //Show Start
                                                     Start_button.setVisibility(View.VISIBLE);
                                                 }
                                             });
