@@ -20,6 +20,8 @@ public class MainActivity extends Activity {
 
         // Variable IDENTIFICATION:
         // Get BUTTONS:
+        final Button SingleScore_button = (Button)findViewById(R.id.SingleScore_button);
+        final Button Redo_button = (Button)findViewById(R.id.button_Redo);
         final Button Reg_button = (Button)findViewById(R.id.ButtonRegister);
         final Button Q1_button = (Button)findViewById(R.id.ButtonQ1);
         final Button Q2_button = (Button)findViewById(R.id.ButtonQ2);
@@ -51,6 +53,7 @@ public class MainActivity extends Activity {
         final TextView notice_txt = (TextView)findViewById(R.id.textViewNotice);
 
         // INITIAL VALUE SET
+        Redo_button.setVisibility(View.INVISIBLE);
         notice_txt.setVisibility(View.INVISIBLE);
         Score_button.setVisibility(View.INVISIBLE);
         Q1_button.setVisibility(View.INVISIBLE);
@@ -73,6 +76,7 @@ public class MainActivity extends Activity {
         name_tit.setVisibility(View.INVISIBLE);
         Hint_button.setVisibility(View.INVISIBLE);
         Skip_button.setVisibility(View.INVISIBLE);
+        SingleScore_button.setVisibility(View.INVISIBLE);
 
         //Single button clicked
         Single_button.setOnClickListener
@@ -88,7 +92,7 @@ public class MainActivity extends Activity {
                                 Reg_button.setVisibility(View.VISIBLE);
                                 name_tit.setVisibility(View.VISIBLE);
                                 txtname.setVisibility(View.VISIBLE);
-                                PlayerNo(0, false, false);
+                                PlayerNo(0, false, false, 0);
                             }
                         }
                 );
@@ -106,7 +110,7 @@ public class MainActivity extends Activity {
                         name_tit.setVisibility(View.VISIBLE);
                         txtname.setVisibility(View.VISIBLE);
 
-                        PlayerNo(0, true, false);
+                        PlayerNo(0, true, false, 0);
                     }
                 }
         );
@@ -114,18 +118,20 @@ public class MainActivity extends Activity {
 
     }
 
-    public void PlayerNo(int n, boolean c, boolean sc) {
+    public void PlayerNo(int n, boolean c, boolean sc, int time) {
         playerList[n] = new Players();
-        Input(playerList[n], c, sc);
+        Input(playerList[n], c, sc, time);
     }
 
     public boolean isAlpha(String name) {
         return Pattern.matches("[a-zA-Z]+", name);
     }
 
-    public void Input(final Players aPlayer, final boolean c, final boolean sc)
+    public void Input(final Players aPlayer, final boolean c, final boolean sc, final int time)
     {
         // Get BUTTONS:
+        final Button SingleScore_button = (Button)findViewById(R.id.SingleScore_button);
+        final Button Redo_button = (Button)findViewById(R.id.button_Redo);
         final Button Score_button = (Button)findViewById(R.id.buttonScore);
         final Button Reg_button = (Button)findViewById(R.id.ButtonRegister);
         final Button Q1_button = (Button)findViewById(R.id.ButtonQ1);
@@ -178,6 +184,7 @@ public class MainActivity extends Activity {
                             name_tit.setVisibility(View.INVISIBLE);
 
                             //Make Start visible
+                            Start_button.setText("START");
                             Start_button.setVisibility(View.VISIBLE);
                         }
                         else
@@ -203,6 +210,7 @@ public class MainActivity extends Activity {
                         A_button.setVisibility(View.INVISIBLE);
                         B_button.setVisibility(View.INVISIBLE);
                         C_button.setVisibility(View.INVISIBLE);
+                        Start_button.setText("GO TO QUESTION LIST");
                         Start_button.setVisibility(View.INVISIBLE);
 
                         // Make necessary things VISIBLE
@@ -272,7 +280,7 @@ public class MainActivity extends Activity {
                                                     //Set answered
                                                     aPlayer.set1();
                                                     //Increase score
-                                                    aPlayer.increaseScore();
+                                                    aPlayer.increaseScore(time);
                                                     sol_txt.setText("Your answer is RIGHT! Click below button to go back to question list.");
                                                     sol_txt.setVisibility(View.VISIBLE);
                                                     //Hide buttons
@@ -381,7 +389,7 @@ public class MainActivity extends Activity {
                                                     //Set answered
                                                     aPlayer.set2();
                                                     //Increase score
-                                                    aPlayer.increaseScore();
+                                                    aPlayer.increaseScore(time);
                                                     sol_txt.setText("Your answer is RIGHT! Click below button to go back to question list.");
                                                     sol_txt.setVisibility(View.VISIBLE);
                                                     //Hide buttons
@@ -548,7 +556,7 @@ public class MainActivity extends Activity {
                                                     sol_txt.setText("Your answer is RIGHT! Click below button to go back to question list.");
                                                     sol_txt.setVisibility(View.VISIBLE);
                                                     //Increase score
-                                                    aPlayer.increaseScore();
+                                                    aPlayer.increaseScore(time);
                                                     //Hide buttons
                                                     A_button.setVisibility(View.INVISIBLE);
                                                     B_button.setVisibility(View.INVISIBLE);
@@ -674,7 +682,7 @@ public class MainActivity extends Activity {
                                                     sol_txt.setText("Your answer is RIGHT! Click below button to go back to question list.");
                                                     sol_txt.setVisibility(View.VISIBLE);
                                                     //Increase score
-                                                    aPlayer.increaseScore();
+                                                    aPlayer.increaseScore(time);
                                                     //Hide buttons
                                                     A_button.setVisibility(View.INVISIBLE);
                                                     B_button.setVisibility(View.INVISIBLE);
@@ -760,7 +768,7 @@ public class MainActivity extends Activity {
                                                     //Set answered
                                                     aPlayer.set5();
                                                     //Increase score
-                                                    aPlayer.increaseScore();
+                                                    aPlayer.increaseScore(time);
                                                     sol_txt.setText("Your answer is RIGHT! Click below button to go back to question list.");
                                                     sol_txt.setVisibility(View.VISIBLE);
                                                     //Hide buttons
@@ -854,9 +862,20 @@ public class MainActivity extends Activity {
                         // SHOW RESULT
                         if (aPlayer.get1() == false && aPlayer.get2() == false && aPlayer.get3() == false && aPlayer.get4() == false && aPlayer.get5() == false)
                         {
-                            score_txt.setText(aPlayer.getName() + "'s score is: " + aPlayer.getScore() + "/5");
+                            score_txt.setText(aPlayer.getName() + "'s score is: " + aPlayer.getScore(time) + "/5");
                             Start_button.setText("You answered all the questions.");
                             score_txt.setVisibility(View.VISIBLE);
+
+                            //SHOW REDO IF SINGLE PLAYER
+                            if (!c && !sc && time < 2)
+                            {
+                                Redo_button.setVisibility(View.VISIBLE);
+                            }
+                            //SHOW SINGLE SCORE REVIEW BUTTON IF PLAYED AT LEAST 2 TIMES
+                            if (time > 0 && !c && !sc)
+                            {
+                                SingleScore_button.setVisibility(View.VISIBLE);
+                            }
 
                             //SHOW NEXT PLAYER IF MULTI
                             if (c) {
@@ -872,6 +891,98 @@ public class MainActivity extends Activity {
                                 notice_txt.setVisibility(View.VISIBLE);
                             }
                         }
+                    }
+                });
+
+        //Redo Button click
+        Redo_button.setOnClickListener(
+                new Button.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View View)
+                    {
+                        aPlayer.resetquestion();
+                        aPlayer.SetScore(time+1);
+                        Input(aPlayer, false, false, time+1);
+                        Start_button.setText("START");
+                        Start_button.setVisibility(View.VISIBLE);
+                        Redo_button.setVisibility(View.INVISIBLE);
+                        SingleScore_button.setVisibility(View.INVISIBLE);
+                    }
+                });
+
+        //SINGLE SCORE BUTTON click
+        SingleScore_button.setOnClickListener(
+                new Button.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View View)
+                    {
+                        // Make unnecessary things INVISIBLE
+                        SingleScore_button.setVisibility(View.INVISIBLE);
+                        notice_txt.setVisibility(View.INVISIBLE);
+                        Start_button.setVisibility(View.INVISIBLE);
+                        score_txt.setVisibility(View.INVISIBLE);
+                        Redo_button.setVisibility(View.INVISIBLE);
+
+                        String resultst = "Your scores in order for each time are: ";
+
+                        for (int j = 0; j<=time; j++)
+                        {
+                            resultst = resultst + (aPlayer.getScore(j)) + "  ";
+                        }
+                        low_txt.setText(resultst);
+
+                        String rankst = "Ranks among the times you tried are: ";
+
+                        if (time == 2) {
+                            //IF 1st time HIGHEST
+                            if (aPlayer.getScore(0) >= aPlayer.getScore(1) && aPlayer.getScore(0) >= aPlayer.getScore(2)) {
+                                rankst = rankst + " 1st time,";
+                                if (aPlayer.getScore(1) >= aPlayer.getScore(2)) {
+                                    rankst = rankst + " 2nd time, 3rd time.";
+                                } else {
+                                    rankst = rankst + " 3rd time, 2nd time.";
+                                }
+                            } else {
+                                //IF 2nd time highest
+                                if (aPlayer.getScore(1) >= aPlayer.getScore(0) && aPlayer.getScore(1) >= aPlayer.getScore(2)) {
+                                    rankst = rankst + " 2nd time,";
+                                    if (aPlayer.getScore(0) >= aPlayer.getScore(2)) {
+                                        rankst = rankst + " 1st time, 3rd time.";
+                                    } else {
+                                        rankst = rankst + " 3rd time, 1st time.";
+                                    }
+                                } else {
+                                    // IF 3rd time highest
+                                    if (aPlayer.getScore(2) >= aPlayer.getScore(0) && aPlayer.getScore(2) >= aPlayer.getScore(1)) {
+                                        rankst = rankst + " 3rd time,";
+                                        if (aPlayer.getScore(1) >= aPlayer.getScore(0)) {
+                                            rankst = rankst + " 2nd time, 1st time.";
+                                        } else {
+                                            rankst = rankst + " 1st time, 2nd time.";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (time == 1)
+                        {
+                            if (aPlayer.getScore(0) >= aPlayer.getScore(1))
+                            {
+                                rankst = rankst + " 1st time, 2nd time.";
+                            }
+                            else {
+                                rankst = rankst + " 2nd time, 1st time.";
+                            }
+                        }
+                        high_txt.setText(rankst);
+                        // Make necessary things VISIBLE
+                        low_txt.setVisibility(View.VISIBLE);
+                        high_txt.setVisibility(View.VISIBLE);
+
+                        hello.setText("SCORE REVIEW");
+
                     }
                 });
 
@@ -903,11 +1014,11 @@ public class MainActivity extends Activity {
                         txtname.setVisibility(View.VISIBLE);
                         question_txt.setText("");
 
-                        PlayerNo(1, false, true);
+                        PlayerNo(1, false, true, 0);
                     }
                 });
 
-        //Score Button click
+        //Score Button For Multiplayers Rank click
         Score_button.setOnClickListener(
                 new Button.OnClickListener()
                 {
@@ -918,13 +1029,6 @@ public class MainActivity extends Activity {
                         Score_button.setVisibility(View.INVISIBLE);
                         notice_txt.setVisibility(View.INVISIBLE);
                         NextPlayer_button.setVisibility(View.INVISIBLE);
-                        Hint_button.setVisibility(View.INVISIBLE);
-                        Skip_button.setVisibility(View.INVISIBLE);
-                        Q1_button.setVisibility(View.INVISIBLE);
-                        Q2_button.setVisibility(View.INVISIBLE);
-                        Q3_button.setVisibility(View.INVISIBLE);
-                        Q4_button.setVisibility(View.INVISIBLE);
-                        Q5_button.setVisibility(View.INVISIBLE);
                         Start_button.setVisibility(View.INVISIBLE);
                         score_txt.setVisibility(View.INVISIBLE);
 
@@ -933,19 +1037,19 @@ public class MainActivity extends Activity {
                         high_txt.setVisibility(View.VISIBLE);
 
                         hello.setText("SCORE REVIEW");
-                        if (playerList[0].getScore() > playerList[1].getScore())
+                        if (playerList[0].getScore(time) > playerList[1].getScore(time))
                         {
-                            high_txt.setText(playerList[0].getName() + " has higher score with " + playerList[0].getScore() + "/5");
-                            low_txt.setText(playerList[1].getName() + " has lower score with " + playerList[1].getScore() + "/5");
+                            high_txt.setText(playerList[0].getName() + " has higher score with " + playerList[0].getScore(time) + "/5");
+                            low_txt.setText(playerList[1].getName() + " has lower score with " + playerList[1].getScore(time) + "/5");
                         }
-                        else if (playerList[0].getScore() < playerList[1].getScore())
+                        else if (playerList[0].getScore(time) < playerList[1].getScore(time))
                         {
-                            high_txt.setText(playerList[1].getName() + " has higher score with " + playerList[1].getScore() + "/5");
-                            low_txt.setText(playerList[0].getName() + " has lower score with " + playerList[0].getScore() + "/5");
+                            high_txt.setText(playerList[1].getName() + " has higher score with " + playerList[1].getScore(time) + "/5");
+                            low_txt.setText(playerList[0].getName() + " has lower score with " + playerList[0].getScore(time) + "/5");
                         }
-                        else if (playerList[0].getScore() == playerList[1].getScore())
+                        else if (playerList[0].getScore(time) == playerList[1].getScore(time))
                         {
-                            high_txt.setText(playerList[1].getName() + " and " + playerList[0].getName() + " have same score with " + playerList[1].getScore() + "/5");
+                            high_txt.setText(playerList[1].getName() + " and " + playerList[0].getName() + " have same score with " + playerList[1].getScore(time) + "/5");
                             low_txt.setText("");
                         }
                     }

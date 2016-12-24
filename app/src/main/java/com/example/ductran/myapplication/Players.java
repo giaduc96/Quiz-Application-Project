@@ -7,18 +7,34 @@ package com.example.ductran.myapplication;
 public class Players
 {
     private String name;
-    private int score;
+    private int[] score = new int[3];
     private boolean q1,q2,q3,q4,q5;
     //  Constructor - sets default values for name.
     public Players ()
     {
         name = "";
-        score = 0;
         q1 = true;
         q2 = true;
         q3 = true;
         q4 = true;
         q5 = true;
+        score[0] = 0;
+    }
+
+    // Reset Questions Status to redo the quiz
+    public void resetquestion ()
+    {
+        q1 = true;
+        q2 = true;
+        q3 = true;
+        q4 = true;
+        q5 = true;
+    }
+
+    // Set 0 to score of redo times
+    public void SetScore(int n)
+    {
+        score[n] = 0;
     }
 
     // Sets name
@@ -28,7 +44,7 @@ public class Players
     }
 
     // Increase Score
-    public void increaseScore () { score++; }
+    public void increaseScore (int n) { score[n]++; }
 
     // Set answered
     public void set1()
@@ -61,7 +77,7 @@ public class Players
     }
 
     //Return score
-    public int getScore () {return score;}
+    public int getScore (int n) {return score[n];}
 
 
 }

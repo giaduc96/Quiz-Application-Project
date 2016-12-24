@@ -68,7 +68,7 @@
         android:layout_alignEnd="@+id/MultiplayerButton" />
 
     <Button
-        android:text="Hint"
+        android:text="CHEAT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/HintButton"
@@ -137,7 +137,7 @@
         android:layout_below="@+id/textViewHigh"
         android:layout_marginTop="6dp"
         android:id="@+id/textViewLow"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:layout_alignLeft="@+id/textViewHigh"
         android:layout_alignStart="@+id/textViewHigh"
         android:layout_alignRight="@+id/textViewHigh"
@@ -185,7 +185,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Score Review"
+        android:text="Score RANKS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonScore"
@@ -206,7 +206,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewHigh"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:layout_above="@+id/ButtonQ4"
         android:layout_centerHorizontal="true" />
 
@@ -245,6 +245,24 @@
         android:id="@+id/buttonB"
         android:layout_below="@+id/ButtonQ5"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="RE-DO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/StartButton"
+        android:layout_alignRight="@+id/ButtonQ3"
+        android:layout_alignEnd="@+id/ButtonQ3"
+        android:id="@+id/button_Redo" />
+
+    <Button
+        android:text="Score list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewNotice"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/SingleScore_button" />
 
 
 </RelativeLayout>
