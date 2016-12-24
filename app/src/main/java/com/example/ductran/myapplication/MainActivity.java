@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import java.util.regex.Pattern;
 
 public class MainActivity extends Activity {
     Players[] playerList = new Players[2];
@@ -118,6 +119,10 @@ public class MainActivity extends Activity {
         Input(playerList[n], c, sc);
     }
 
+    public boolean isAlpha(String name) {
+        return Pattern.matches("[a-zA-Z]+", name);
+    }
+
     public void Input(final Players aPlayer, final boolean c, final boolean sc)
     {
         // Get BUTTONS:
@@ -155,21 +160,32 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onClick(View view) {
-                        // Get name from text field and set name
-                        notice_txt.setText("Click button below to Start your Quiz!");
-                        notice_txt.setVisibility(View.VISIBLE);
+                        // Get name from text field
                         String name = txtname.getText().toString();
-                        hello.setText("Student: " + name);
-                        aPlayer.setName(name);
 
-                        // Make unecessary things INVISIBLE: EditText name, name title & Start button
-                        txtname.setVisibility(View.INVISIBLE);
-                        Reg_button.setVisibility(View.INVISIBLE);
-                        name_tit.setVisibility(View.INVISIBLE);
+                        // Check whether name is VALID
+                        if (isAlpha(name))
+                        {
+                            notice_txt.setText("Click button below to Start your Quiz!");
+                            notice_txt.setVisibility(View.VISIBLE);
 
-                        //Make Start visible
-                        Start_button.setVisibility(View.VISIBLE);
-                    }
+                            hello.setText("Student: " + name);
+                            aPlayer.setName(name);
+
+                            // Make unecessary things INVISIBLE: EditText name, name title & Start button
+                            txtname.setVisibility(View.INVISIBLE);
+                            Reg_button.setVisibility(View.INVISIBLE);
+                            name_tit.setVisibility(View.INVISIBLE);
+
+                            //Make Start visible
+                            Start_button.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                              notice_txt.setText("Name can only contain LETTERS in ALPHABETS! Re-enter your name.");
+                              notice_txt.setVisibility(View.VISIBLE);
+                        }
+                                           }
                 });
 
         // START BUTTON - Set click
