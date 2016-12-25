@@ -925,13 +925,26 @@ public class MainActivity extends Activity {
                         score_txt.setVisibility(View.INVISIBLE);
                         Redo_button.setVisibility(View.INVISIBLE);
 
-                        String resultst = "Your scores in order for each time are: ";
+                        String resultst = "Your scores in each time: ";
 
                         for (int j = 0; j<=time; j++)
                         {
+                            switch (j)
+                            {
+                                case 0:
+                                    resultst = resultst + "1st time: ";
+                                    break;
+                                case 1:
+                                    resultst = resultst + "2nd time: ";
+                                    break;
+                                case 2:
+                                    resultst = resultst + "3rd time: ";
+                                    break;
+                                default: break;
+                            }
                             resultst = resultst + (aPlayer.getScore(j)) + "  ";
                         }
-                        low_txt.setText(resultst);
+                        high_txt.setText(resultst);
 
                         String rankst = "Ranks among the times you tried are: ";
 
@@ -976,7 +989,7 @@ public class MainActivity extends Activity {
                                 rankst = rankst + " 2nd time, 1st time.";
                             }
                         }
-                        high_txt.setText(rankst);
+                        low_txt.setText(rankst);
                         // Make necessary things VISIBLE
                         low_txt.setVisibility(View.VISIBLE);
                         high_txt.setVisibility(View.VISIBLE);
