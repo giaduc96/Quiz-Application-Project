@@ -68,7 +68,7 @@
         android:layout_alignEnd="@+id/MultiplayerButton" />
 
     <Button
-        android:text="CHEAT"
+        android:text="HINT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/HintButton"
